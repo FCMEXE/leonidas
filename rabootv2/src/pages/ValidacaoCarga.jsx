@@ -58,35 +58,48 @@ export default function ValidacaoCarga() {
   });
 
   // Busca motorista ao digitar matrícula
-  function handleMatriculaChange(e) {
-    const matricula = e.target.value;
-    setForm(prev => ({ ...prev, matriculaConferente: matricula }));
+ function handleMatriculaChange(e) {
+  const matricula = e.target.value;
+  setForm(prev => ({ ...prev, matriculaConferente: matricula }));
 
-    const motorista = motoristas.find(m => m.matricula === matricula);
+  const motorista = motoristas.find(m => m.matricula === matricula);
 
-    if (motorista) {
-      setForm(prev => ({
-        ...prev,
-        cnh: motorista.cnh,
-        cpf: motorista.cpf,
-        nomeMotorista: motorista.nome,
-        caminhao: motorista.caminhao,
-        tipoCarga: motorista.tipoCarga,
-        empresa: motorista.empresa,
-        matriculaConferente: matricula,
-      }));
-    } else {
-      setForm(prev => ({
-        ...prev,
-        cnh: '',
-        cpf: '',
-        nomeMotorista: '',
-        caminhao: '',
-        tipoCarga: '',
-        empresa: '',
-      }));
-    }
+  if (motorista) {
+    setForm(prev => ({
+      ...prev,
+      matriculaConferente: matricula,
+      cnh: motorista.cnh || '',
+      cpf: motorista.cpf || '',
+      nomeMotorista: motorista.nome || '',
+      caminhao: motorista.caminhao || '',
+      tipoCarga: motorista.tipoCarga || '',
+      empresa: motorista.empresa || '',
+      // Dados da DT
+      placaCarreta: motorista.placaCarreta || '',
+      tipoVeiculo: motorista.tipoVeiculo || '',
+      destino: motorista.destino || '',
+      quantidadePaletes: motorista.quantidadePaletes || '',
+      tipoOperacao: motorista.tipoOperacao || '', // ✅ adiciona aqui
+    }));
+  } else {
+    setForm(prev => ({
+      ...prev,
+      cnh: '',
+      cpf: '',
+      nomeMotorista: '',
+      caminhao: '',
+      tipoCarga: '',
+      empresa: '',
+      placaCarreta: '',
+      tipoVeiculo: '',
+      destino: '',
+      quantidadePaletes: '',
+      tipoOperacao: '', // limpa também
+    }));
   }
+}
+
+
 
   // Handle geral para inputs, selects, checkboxes e arquivos
   function handleChange(e) {
@@ -159,73 +172,21 @@ export default function ValidacaoCarga() {
           />
 
           <label>Informar se é carregamento ou descarga de P.A:</label>
-          <select
-            name="tipoOperacao"
-            value={form.tipoOperacao}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Selecione</option>
-            <option value="Carga">Carga</option>
-            <option value="Descarga">Descarga</option>
-          </select>
+<input
+  type="text"
+  name="tipoOperacao"
+  value={form.tipoOperacao}
+  readOnly
+/>
 
-          <label>Foto da placa da carreta - Coletor:</label>
-          <input
-            type="file"
-            name="fotoPlacaCarreta"
-            onChange={handleChange}
-            accept="image/*"
-          />
-          <span className="file-name">{fileName(form.fotoPlacaCarreta)}</span>
-
-          <label>Tipo de veículo - DT:</label>
-          <select
-            name="tipoVeiculo"
-            value={form.tipoVeiculo}
-            onChange={handleChange}
-          >
-            <option value="">Selecione</option>
-            {tipoVeiculos.map(tipo => (
-              <option key={tipo} value={tipo}>{tipo}</option>
-            ))}
-          </select>
-
-          <h2>Condições do Veículo (Fotos)</h2>
-          <div className="grid-fotos">
-            {[
-              { label: 'Internamente sujo?', name: 'internoSujoFoto' },
-              { label: 'Lonas sujas ou rasgadas?', name: 'lonasFoto' },
-              { label: 'Problemas de vedação ou vazamento?', name: 'vedacaoFoto' },
-              { label: 'Tampa quebrada ou danificada?', name: 'tampaFoto' },
-              { label: 'Assoalho molhado, sujo ou com buracos?', name: 'assoalhoFoto' },
-              { label: 'Calhas/cantoneiras tortas/amassadas?', name: 'calhasFoto' },
-              { label: 'Esqueleto/espinha danificada?', name: 'esqueletoFoto' },
-              { label: 'Sinais de vetores ou pragas?', name: 'pragasFoto' },
-              { label: 'Foto lado esquerdo vazio:', name: 'ladoEsquerdoVazioFoto' },
-              { label: 'Foto lado direito vazio:', name: 'ladoDireitoVazioFoto' },
-            ].map(({ label, name }) => (
-              <div key={name}>
-                <label>{label}</label>
-                <input
-                  type="file"
-                  name={name}
-                  onChange={handleChange}
-                  accept="image/*"
-                />
-                <span className="file-name">{fileName(form[name])}</span>
-              </div>
-            ))}
-          </div>
-
+<label>Tipo de veículo - DT:</label>
+<input
+  type="text"
+  name="tipoVeiculo"
+  value={form.tipoVeiculo}
+  readOnly
+/>
           <h2>Dados do Conferente e Operação</h2>
-          <label>Nome do conferente:</label>
-          <input
-            type="text"
-            name="nomeConferente"
-            value={form.nomeConferente}
-            onChange={handleChange}
-          />
 
           <label>Matrícula do conferente – Tela do SAP (repetido para confirmação):</label>
           <input
@@ -277,27 +238,25 @@ export default function ValidacaoCarga() {
             O veículo está aprovado para o carregamento?
           </label>
 
-          <label>Selecione o destino - DT:</label>
-          <select
-            name="destino"
-            value={form.destino}
-            onChange={handleChange}
-          >
-            <option value="">Selecione</option>
-            {destinos.map(dest => (
-              <option key={dest} value={dest}>{dest}</option>
-            ))}
-          </select>
+         <label>Destino - DT:</label>
+<input
+  type="text"
+  name="destino"
+  value={form.destino}
+  readOnly
+/>
+
 
        
 
           <label>Quantidade de paletes com produto – DT:</label>
           <input
-            type="number"
+            type="text"
             name="quantidadePaletes"
             value={form.quantidadePaletes}
             onChange={handleChange}
-            min="0"
+              readOnly
+           
           />
 
           <label>Foto lado direito aberto e carregado:</label>
