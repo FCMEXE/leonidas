@@ -16,14 +16,32 @@ export default function Navbar({ titulo, linkTexto, linkDestino }) {
       boxShadow: '0 2px 5px rgba(0,0,0,0.3)'
     }}>
       <h1 style={{ margin: 0 }}>{titulo}</h1>
-      {linkTexto && linkDestino && (
-        <Link 
-          to={linkDestino} 
-          style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold' }}
+
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        {linkTexto && linkDestino && (
+          <Link
+            to={linkDestino}
+            style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold' }}
+          >
+            {linkTexto}
+          </Link>
+        )}
+
+        {/* Botão para ir até Avarias */}
+        <Link
+          to="/avarias"
+          style={{
+            color: 'white',
+            backgroundColor: '#f0a500',
+            padding: '0.5rem 1rem',
+            borderRadius: '6px',
+            fontWeight: 'bold',
+            textDecoration: 'none'
+          }}
         >
-          {linkTexto}
+          Avarias
         </Link>
-      )}
+      </div>
     </nav>
   );
 }

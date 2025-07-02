@@ -1,0 +1,96 @@
+.avaria-fundo {
+  background-color: #dbe8f3;
+  min-height: 100vh;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.molde-celular-sap {
+  width: 375px;
+  background-color: #f0f4f7;
+  border: 2px solid #003366;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 0 0 4px #93b4d7;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+}
+
+.molde-celular-sap::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  border-radius: 3px;
+  background-color: #003366;
+}
+
+.molde-celular-sap h2 {
+  font-size: 1.1rem;
+  text-align: center;
+  color: #003366;
+  margin-bottom: 1.5rem;
+}
+
+.grupo-avaria {
+  margin-bottom: 1.2rem;
+}
+
+.grupo-avaria label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #000a1f;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.grupo-avaria input[type="file"] {
+  background-color: white;
+  border: 2px solid #0070d2;
+  padding: 6px;
+  width: 100%;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.grupo-avaria input[type="file"]:focus {
+  background-color: #fff4c1; /* amarelo SAP */
+  outline: none;
+}
+
+.nao-checkbox {
+  display: flex;
+  align-items: center;
+  margin-top: 0.4rem;
+  font-size: 0.88rem;
+  color: #222;
+  gap: 0.5rem;
+}
+
+.nao-checkbox input[type="checkbox"] {
+  transform: scale(1.2);
+  accent-color: #0070d2;
+}
+
+.btn-avarias-sap {
+  width: 100%;
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.btn-avarias-sap:hover {
+  background-color: #005fa3;
+}
