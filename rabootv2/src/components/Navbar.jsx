@@ -31,7 +31,7 @@ export default function Navbar({ titulo, linkTexto, linkDestino }) {
           boxShadow: '0 0 5px rgba(0,0,0,0.1)',
           cursor: 'pointer',
         }}>
-          {/* Exemplo: letra "S" para simbolizar SAP (substitua por <img src="logo.png" alt="Logo" />) */}
+
            <img src="src/assets/truck_16061035.gif" alt="Logo" width={45} />
           
         </div>

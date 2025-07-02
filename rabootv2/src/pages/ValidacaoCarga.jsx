@@ -127,7 +127,7 @@ export default function ValidacaoCarga() {
 
   return (
     <>
-      <Navbar titulo="Validação de Carga - Barracão" linkTexto="Voltar para GP LOG" linkDestino="/" />
+      <Navbar titulo="Validação de Carga - Logística" linkTexto="Voltar para GP LOG" linkDestino="/" />
 
       <div className="container-validacao">
         <form className="form-validacao" onSubmit={handleSubmit}>
@@ -259,24 +259,6 @@ export default function ValidacaoCarga() {
            
           />
 
-          <label>Foto lado direito aberto e carregado:</label>
-          <input
-            type="file"
-            name="ladoDireitoCarregadoFoto"
-            onChange={handleChange}
-            accept="image/*"
-          />
-          <span className="file-name">{fileName(form.ladoDireitoCarregadoFoto)}</span>
-
-          <label>Foto lado esquerdo aberto e carregado:</label>
-          <input
-            type="file"
-            name="ladoEsquerdoCarregadoFoto"
-            onChange={handleChange}
-            accept="image/*"
-          />
-          <span className="file-name">{fileName(form.ladoEsquerdoCarregadoFoto)}</span>
-
           <label>Paletes fora das especificações do GP? (SAP):</label>
           <input
             type="text"
@@ -301,23 +283,7 @@ export default function ValidacaoCarga() {
             rows="3"
           />
 
-          <h2>Assinaturas</h2>
-          <label>Assinatura do motorista:</label>
-          <input
-            type="name"
-            name="assinaturaMotorista"
-            onChange={handleChange}
-            
-          />
-          
-
-          <label>Assinatura do conferente:</label>
-          <input
-            type="name"
-            name="assinaturaConferente"
-            onChange={handleChange}
-        
-          />
+      
         
 
           <button type="submit" className="btn-submit">Enviar </button>

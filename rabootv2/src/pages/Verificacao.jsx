@@ -20,7 +20,7 @@ export default function Verificacao() {
     <>
       <Navbar 
         titulo="GP LOG" 
-        linkTexto="Ir para Validação de Carga" 
+        linkTexto="Checklist Descarregamento" 
         linkDestino="/validacao-carga" 
       />
 
