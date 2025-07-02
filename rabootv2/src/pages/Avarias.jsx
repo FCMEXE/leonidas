@@ -4,6 +4,7 @@ import './Avarias.css';
 
 export default function Avarias() {
   const [form, setForm] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const perguntas = [
     { label: 'O veículo está internamente sujo?', name: 'internoSujo' },
@@ -17,44 +18,124 @@ export default function Avarias() {
   ];
 
   const handleChange = (e) => {
-    const { name, type, files, checked } = e.target;
+    const { name, type, value, files, checked } = e.target;
     setForm(prev => ({
       ...prev,
-      [name]: type === 'file' ? files[0] : checked
+      [name]: type === 'file' ? files[0] : (type === 'checkbox' ? checked : value)
     }));
+  };
+
+  const fileName = (file) => {
+    return file ? file.name : 'Nenhum arquivo';
+  };
+  
+  const handleOpenModal = (e) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  };
+  
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Dados finais a serem enviados:", form);
+    alert("Checklist de Avarias enviado com sucesso!");
+    handleCloseModal();
   };
 
   return (
     <>
       <Navbar titulo="Avarias" linkTexto="Voltar" linkDestino="/" />
       <div className="avaria-fundo">
-        <div className="molde-celular-sap">
-          <h2>Checklist de Avarias</h2>
-
-          {perguntas.map((pergunta) => (
-            <div className="grupo-avaria" key={pergunta.name}>
-              <label>{pergunta.label}</label>
-              <input
-                type="file"
-                accept="image/*"
-                name={`${pergunta.name}Foto`}
-                onChange={handleChange}
-              />
-              <label className="nao-checkbox">
-                <input
-                  type="checkbox"
-                  name={`${pergunta.name}Nao`}
-                  checked={form[`${pergunta.name}Nao`] || false}
-                  onChange={handleChange}
-                />
-                Não
-              </label>
-            </div>
-          ))}
-
-          <button className="btn-avarias-sap">Enviar Avarias</button>
-        </div>
+        <form className="molde-celular-sap" onSubmit={handleOpenModal}>
+          <h2>Checklist de Avarias do Veículo</h2>
+          <div className="form-content">
+            {perguntas.map((pergunta) => (
+              <div className="grupo-avaria" key={pergunta.name}>
+                <label>{pergunta.label}</label>
+                <div className="input-container">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id={`${pergunta.name}Foto`}
+                    name={`${pergunta.name}Foto`}
+                    onChange={handleChange}
+                    style={{ display: 'none' }}
+                  />
+                  <label htmlFor={`${pergunta.name}Foto`} className="btn-upload">
+                    Anexar...
+                  </label>
+                  <span className="file-name-checklist">{fileName(form[`${pergunta.name}Foto`])}</span>
+                  
+                  <label className="nao-checkbox">
+                    <input
+                      type="checkbox"
+                      name={`${pergunta.name}Nao`}
+                      checked={form[`${pergunta.name}Nao`] || false}
+                      onChange={handleChange}
+                    />
+                    Não se aplica
+                  </label>
+                </div>
+              </div>
+            ))}
+            <button type="submit" className="btn-avarias-sap">Avançar para Assinaturas</button>
+          </div>
+        </form>
       </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Fotos Adicionais e Assinaturas</h2>
+            <div className="form-content">
+              <form onSubmit={handleSubmit}>
+                <label>Foto lado direito aberto e carregado:</label>
+                <input
+                  type="file"
+                  name="ladoDireitoCarregadoFoto"
+                  onChange={handleChange}
+                  accept="image/*"
+                />
+
+                <label>Foto lado esquerdo aberto e carregado:</label>
+                <input
+                  type="file"
+                  name="ladoEsquerdoCarregadoFoto"
+                  onChange={handleChange}
+                  accept="image/*"
+                />
+
+                <div className="grupo-assinatura">
+                  <h3>Assinaturas</h3>
+                  <label>Nome do motorista:</label>
+                  <input
+                    type="text"
+                    name="assinaturaMotorista"
+                    value={form.assinaturaMotorista || ''}
+                    onChange={handleChange}
+                  />
+                  
+                  <label>Nome do conferente:</label>
+                  <input
+                    type="text"
+                    name="assinaturaConferente"
+                    value={form.assinaturaConferente || ''}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="modal-actions">
+                  <button type="button" onClick={handleCloseModal}>Cancelar</button>
+                  <button type="submit" className="btn-primary">Confirmar e Enviar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
