@@ -133,7 +133,7 @@ export default function ValidacaoCarga() {
         <form className="form-validacao" onSubmit={handleSubmit}>
 
           <h2>Dados do Motorista</h2>
-          <label>Matrícula do conferente – Tela do SAP:</label>
+          <label>Matrícula do Motorista – Tela do SAP:</label>
           <input
             type="text"
             name="matriculaConferente"
@@ -186,6 +186,28 @@ export default function ValidacaoCarga() {
   value={form.tipoVeiculo}
   readOnly
 />
+
+         <label>Destino - DT:</label>
+<input
+  type="text"
+  name="destino"
+  value={form.destino}
+  readOnly
+/>
+
+
+       
+
+          <label>Quantidade de paletes com produto – DT:</label>
+          <input
+            type="text"
+            name="quantidadePaletes"
+            value={form.quantidadePaletes}
+            onChange={handleChange}
+              readOnly
+           
+          />
+
           <h2>Dados do Conferente e Operação</h2>
 
           <label>Matrícula do conferente – Tela do SAP (repetido para confirmação):</label>
@@ -209,12 +231,19 @@ export default function ValidacaoCarga() {
           </select>
 
           <label>Local de expedição - Tela SAP:</label>
-          <input
-            type="text"
-            name="localExpedicao"
-            value={form.localExpedicao}
-            onChange={handleChange}
-          />
+<select
+  name="localExpedicao"
+  value={form.localExpedicao || ''}
+  onChange={handleChange}
+  className="select" // opcional: classe para estilização
+>
+  <option value="" disabled>Selecione o local</option>
+  <option value="Almox">Almox</option>
+  <option value="Armazem 01">Armazem 01</option>
+  <option value="Armazem 02">Armazem 02</option>
+  <option value="Chopp">Chopp</option>
+</select>
+
 
           <label>Selecione a transportadora:</label>
           <select
@@ -238,26 +267,7 @@ export default function ValidacaoCarga() {
             O veículo está aprovado para o carregamento?
           </label>
 
-         <label>Destino - DT:</label>
-<input
-  type="text"
-  name="destino"
-  value={form.destino}
-  readOnly
-/>
 
-
-       
-
-          <label>Quantidade de paletes com produto – DT:</label>
-          <input
-            type="text"
-            name="quantidadePaletes"
-            value={form.quantidadePaletes}
-            onChange={handleChange}
-              readOnly
-           
-          />
 
           <label>Paletes fora das especificações do GP? (SAP):</label>
           <input

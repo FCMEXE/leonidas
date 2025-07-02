@@ -81,7 +81,7 @@ export default function Avarias() {
                 </div>
               </div>
             ))}
-            <button type="submit" className="btn-avarias-sap">Avançar para Assinaturas</button>
+            <button type="submit" className="btn-avarias-sap">Avançar</button>
           </div>
         </form>
       </div>
