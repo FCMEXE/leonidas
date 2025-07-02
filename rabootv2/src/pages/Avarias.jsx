@@ -69,10 +69,10 @@ export default function AvariasDinamico() {
 
   return (
     <>
-      <Navbar titulo="Avarias Dinâmico" linkTexto="Voltar" linkDestino="/" />
+      <Navbar titulo="Checklist - Logística" linkTexto="Voltar" linkDestino="/" />
       <div className="avaria-fundo">
         <form className="molde-celular-sap" onSubmit={handleOpenModal}>
-          <h2>Checklist Dinâmico</h2>
+          <h2>Checklist   </h2>
 
           <div className="form-content">
             <label>Selecione uma pergunta:</label>
@@ -81,7 +81,7 @@ export default function AvariasDinamico() {
     value={selectedQuestion}
     onChange={e => setSelectedQuestion(e.target.value)}
   >
-    <option value="">-- Selecione --</option>
+    <option value="">Clique Aqui!</option>
     {perguntas.map(p => (
       <option key={p.name} value={p.name}>{p.label}</option>
     ))}
@@ -134,7 +134,7 @@ export default function AvariasDinamico() {
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>Checklist Final</h2>
+            <h2>Checklist de carregamento</h2>
             <div className="form-content">
               <form onSubmit={handleSubmit}>
                 <label>Foto lado direito aberto e carregado:</label>
@@ -155,7 +155,7 @@ export default function AvariasDinamico() {
 
                 <div className="grupo-assinatura">
                   <h3>Assinaturas</h3>
-                  <label>Nome do motorista:</label>
+                  <label>Assinatura do motorista:</label>
                   <input
                     type="text"
                     name="assinaturaMotorista"
@@ -163,7 +163,7 @@ export default function AvariasDinamico() {
                     onChange={handleChange}
                   />
 
-                  <label>Nome do conferente:</label>
+                  <label>Assinatura do conferente:</label>
                   <input
                     type="text"
                     name="assinaturaConferente"

@@ -269,13 +269,31 @@ export default function ValidacaoCarga() {
 
 
 
-          <label>Paletes fora das especificações do GP? (SAP):</label>
-          <input
-            type="text"
-            name="paleteEspecificacao"
-            value={form.paleteEspecificacao}
-            onChange={handleChange}
-          />
+       <label>Paletes fora das especificações do GP? (SAP):</label>
+<div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+  <label style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+    <input
+      type="radio"
+      name="paleteEspecificacao"
+      value="Sim"
+      checked={form.paleteEspecificacao === 'Sim'}
+      onChange={handleChange}
+    />
+    Sim
+  </label>
+
+  <label style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+    <input
+      type="radio"
+      name="paleteEspecificacao"
+      value="Não"
+      checked={form.paleteEspecificacao === 'Não'}
+      onChange={handleChange}
+    />
+    Não
+  </label>
+</div>
+
 
           <label>Motorista acompanhou o carregamento? (SAP):</label>
           <input
