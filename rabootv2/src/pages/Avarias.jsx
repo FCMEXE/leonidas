@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import './Avarias.css';
 
-export default function Avarias() {
+export default function AvariasDinamico() {
   const [form, setForm] = useState({});
+  const [selectedQuestion, setSelectedQuestion] = useState('');
+  const [selectedCards, setSelectedCards] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const perguntas = [
@@ -28,12 +30,32 @@ export default function Avarias() {
   const fileName = (file) => {
     return file ? file.name : 'Nenhum arquivo';
   };
-  
+
+  const handleAddCard = () => {
+    if (!selectedQuestion) return;
+    const exists = selectedCards.find(p => p.name === selectedQuestion);
+    if (!exists) {
+      const pergunta = perguntas.find(p => p.name === selectedQuestion);
+      setSelectedCards([...selectedCards, pergunta]);
+    }
+    setSelectedQuestion('');
+  };
+
+  const handleRemoveCard = (name) => {
+    setSelectedCards(prev => prev.filter(p => p.name !== name));
+    setForm(prev => {
+      const newForm = { ...prev };
+      delete newForm[`${name}Foto`];
+      delete newForm[`${name}Nao`];
+      return newForm;
+    });
+  };
+
   const handleOpenModal = (e) => {
     e.preventDefault();
     setIsModalOpen(true);
   };
-  
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -47,12 +69,28 @@ export default function Avarias() {
 
   return (
     <>
-      <Navbar titulo="Avarias" linkTexto="Voltar" linkDestino="/" />
+      <Navbar titulo="Avarias Dinâmico" linkTexto="Voltar" linkDestino="/" />
       <div className="avaria-fundo">
         <form className="molde-celular-sap" onSubmit={handleOpenModal}>
-          <h2>Checklist de Descarregamento</h2>
+          <h2>Checklist Dinâmico</h2>
+
           <div className="form-content">
-            {perguntas.map((pergunta) => (
+            <label>Selecione uma pergunta:</label>
+            <div className="grupo-selecao-pergunta">
+  <select
+    value={selectedQuestion}
+    onChange={e => setSelectedQuestion(e.target.value)}
+  >
+    <option value="">-- Selecione --</option>
+    {perguntas.map(p => (
+      <option key={p.name} value={p.name}>{p.label}</option>
+    ))}
+  </select>
+  <button type="button" onClick={handleAddCard} className="btn-upload">Adicionar</button>
+</div>
+
+
+            {selectedCards.map((pergunta) => (
               <div className="grupo-avaria" key={pergunta.name}>
                 <label>{pergunta.label}</label>
                 <div className="input-container">
@@ -68,7 +106,6 @@ export default function Avarias() {
                     Anexar...
                   </label>
                   <span className="file-name-checklist">{fileName(form[`${pergunta.name}Foto`])}</span>
-                  
                   <label className="nao-checkbox">
                     <input
                       type="checkbox"
@@ -78,9 +115,17 @@ export default function Avarias() {
                     />
                     Não se aplica
                   </label>
+                 <button
+  type="button"
+  onClick={() => handleRemoveCard(pergunta.name)}
+  className="btn-remover-card" // Usando a classe do seu CSS
+>
+  ✕
+</button>
                 </div>
               </div>
             ))}
+
             <button type="submit" className="btn-avarias-sap">Avançar</button>
           </div>
         </form>
@@ -89,7 +134,7 @@ export default function Avarias() {
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>Checklist carregamento</h2>
+            <h2>Checklist Final</h2>
             <div className="form-content">
               <form onSubmit={handleSubmit}>
                 <label>Foto lado direito aberto e carregado:</label>
@@ -117,7 +162,7 @@ export default function Avarias() {
                     value={form.assinaturaMotorista || ''}
                     onChange={handleChange}
                   />
-                  
+
                   <label>Nome do conferente:</label>
                   <input
                     type="text"
