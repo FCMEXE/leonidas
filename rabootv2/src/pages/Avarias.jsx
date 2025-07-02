@@ -50,7 +50,7 @@ export default function Avarias() {
       <Navbar titulo="Avarias" linkTexto="Voltar" linkDestino="/" />
       <div className="avaria-fundo">
         <form className="molde-celular-sap" onSubmit={handleOpenModal}>
-          <h2>Checklist de Avarias do Veículo</h2>
+          <h2>Checklist de Descarregamento</h2>
           <div className="form-content">
             {perguntas.map((pergunta) => (
               <div className="grupo-avaria" key={pergunta.name}>
@@ -89,7 +89,7 @@ export default function Avarias() {
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>Fotos Adicionais e Assinaturas</h2>
+            <h2>Checklist carregamento</h2>
             <div className="form-content">
               <form onSubmit={handleSubmit}>
                 <label>Foto lado direito aberto e carregado:</label>
