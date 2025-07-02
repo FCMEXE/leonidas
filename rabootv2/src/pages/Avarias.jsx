@@ -14,8 +14,6 @@ export default function Avarias() {
     { label: 'Calhas/cantoneiras estão tortas/amassadas ou sem revestimento?', name: 'calhas' },
     { label: 'Esqueleto/espinha está danificada?', name: 'esqueleto' },
     { label: 'Carreta com sinais de vetores ou pragas?', name: 'pragas' },
-    { label: 'Foto do lado esquerdo da carreta vazia:', name: 'esquerdoVazio' },
-    { label: 'Foto do lado direito da carreta vazia:', name: 'direitoVazio' },
   ];
 
   const handleChange = (e) => {
