@@ -1,81 +1,134 @@
-/* Container principal: centraliza vertical e horizontalmente */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* centraliza vertical */
-  padding: 3rem;
-  background-color: #e0f7fa;
-  min-height: 100vh;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+  min-height: calc(100vh - 60px); /* ajustar conforme navbar */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 480px;
+  margin: 2rem auto;
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 131, 165, 0.15);
 }
 
-/* Título principal */
-.titulo {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
+.observacao {
+  background-color: #e1f5fe;
+  padding: 1.2rem 1.5rem;
+  border-left: 6px solid #0288d1;
+  margin-bottom: 2.5rem;
+  width: 100%;
+  font-size: 1rem;
   color: #01579b;
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(2, 136, 209, 0.2);
+  user-select: none;
 }
 
-/* Campo input e select */
-.input,
-.select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  width: 260px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.input {
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  border: 2px solid #90caf9;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.07);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
 }
 
-/* Botão estilizado */
+.input:focus {
+  border-color: #0288d1;
+  box-shadow: 0 0 8px rgba(2, 136, 209, 0.6);
+  background-color: #e3f2fd;
+}
+
 .botao {
-  padding: 0.5rem 1.5rem;
-  font-size: 1rem;
+  padding: 0.75rem 2.5rem;
+  font-size: 1.1rem;
   background-color: #0288d1;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
-  margin-bottom: 1rem;
-  transition: background-color 0.3s ease;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  box-shadow: 0 6px 10px rgba(2, 136, 209, 0.5);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+  width: 100%;
 }
 
-.botao:hover {
+.botao:disabled {
+  background-color: #90caf9;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.botao:hover:not(:disabled) {
   background-color: #0277bd;
+  box-shadow: 0 8px 15px rgba(2, 136, 209, 0.7);
+  transform: translateY(-2px);
 }
 
-/* Card de resultado - telinha central */
+.botao:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
 .cartao-resultado {
-  background-color: #333;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  width: 320px;
+  background-color: #263238;
+  padding: 2rem 2.5rem;
+  border-radius: 15px;
+  width: 100%;
   text-align: left;
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: #eceff1;
+  box-shadow: 0 8px 24px rgba(38, 50, 56, 0.7);
+  font-size: 1rem;
+  user-select: none;
+  margin-top: 1.5rem;
 }
 
-/* Título do card */
 .cartao-resultado h2 {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   text-align: center;
-  color: #ffffff;
+  color: #80d8ff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 6px #4fc3f7;
 }
 
-/* Mensagem de erro */
 .erro {
-  color: red;
-  margin-top: 1rem;
+  color: #ff5252;
+  margin-top: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: shake 0.3s ease;
+  user-select: none;
+  justify-content: center;
 }
 
-/* Caixa de observação */
-.observacao {
-  background-color: #f5f5f5;
-  padding: 1rem;
-  border-left: 5px solid #0288d1;
-  margin-bottom: 2rem;
-  width: 320px;
-  font-size: 0.95rem;
-  color: #333;
+.erro::before {
+  content: "⚠️";
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) }
+  20%, 60% { transform: translateX(-6px) }
+  40%, 80% { transform: translateX(6px) }
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .container {
+    margin: 1rem;
+    padding: 2rem 1rem;
+  }
 }
