@@ -1,0 +1,145 @@
+/* --- ESTILO GERAL DA PÁGINA --- */
+body {
+  background-color: #e0e5ec; /* Um cinza claro para destacar o aparelho */
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px 0;
+}
+
+/* --- MOLDE DO CELULAR --- */
+.mobile-frame {
+  width: 410px;
+  height: 820px;
+  background-color: #1a1a1a; /* Cor do chassi do celular */
+  border-radius: 40px;
+  padding: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 5px #000;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Entalhe (notch) da câmera frontal */
+.mobile-frame::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 25px;
+  background-color: #1a1a1a;
+  border-radius: 0 0 15px 15px;
+  z-index: 10;
+}
+
+/* Tela do celular onde a aplicação vai rodar */
+.mobile-screen {
+  background-color: #f0f2f5; /* Cor de fundo padrão SAP Fiori */
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  overflow: hidden; /* Garante que o conteúdo não saia da tela */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* --- ESTILO DA APLICAÇÃO (SAP GUI) --- */
+
+/* Container principal da validação dentro da tela */
+.container-validacao {
+  flex-grow: 1;
+  overflow-y: auto; /* Habilita a rolagem se o conteúdo for grande */
+  padding: 20px;
+  background-color: #f0f2f5;
+}
+
+/* Estilo do Navbar (Cabeçalho) */
+/* Assumindo que seu Navbar tem uma classe 'navbar' */
+.navbar {
+  background-color: #354a5f; /* Azul escuro corporativo SAP */
+  color: #ffffff;
+  padding: 15px 20px;
+  flex-shrink: 0; /* Impede que o navbar encolha */
+  text-align: center;
+  position: relative;
+}
+
+.navbar .titulo { /* Supondo que o título tenha a classe 'titulo' */
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.navbar .link-texto { /* Supondo que o link tenha a classe 'link-texto' */
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a9d2ff;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+/* Estilo do Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espaçamento entre os campos */
+}
+
+form label {
+  font-size: 0.85em;
+  color: #333333;
+  font-weight: 600;
+  margin-bottom: -10px; /* Aproxima o label do input */
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-sizing: border-box; /* Garante que o padding não afete a largura */
+  font-size: 1em;
+}
+
+/* Estilo para campos somente leitura (readOnly) */
+form input[readonly] {
+  background-color: #f5f5f5; /* Cinza claro para indicar que não é editável */
+  color: #555555;
+  cursor: not-allowed;
+}
+
+/* Destaque ao focar em um campo */
+form input:focus {
+  outline: none;
+  border-color: #007bff; /* Azul padrão de foco */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Estilo do Botão de Envio */
+.btn-submit {
+  background-color: #007bff; /* Azul SAP */
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3; /* Tom mais escuro ao passar o mouse */
+}

@@ -11,12 +11,12 @@ export default function AvariasDinamico() {
   const perguntas = [
     { label: 'O veículo está internamente sujo?', name: 'internoSujo' },
     { label: 'Lonas sujas ou rasgadas?', name: 'lonas' },
-    { label: 'Apresenta problemas de vedação ou vazamento?', name: 'vedacao' },
+    { label: 'Apresenta problemas de vedação?', name: 'vedacao' },
     { label: 'Tampa quebrada ou danificada?', name: 'tampa' },
-    { label: 'Assoalho está molhado, sujo, com buracos ou placas soltas?', name: 'assoalho' },
-    { label: 'Calhas/cantoneiras estão tortas/amassadas ou sem revestimento?', name: 'calhas' },
-    { label: 'Esqueleto/espinha está danificada?', name: 'esqueleto' },
-    { label: 'Carreta com sinais de vetores ou pragas?', name: 'pragas' },
+    { label: 'Assoalho com problemas?', name: 'assoalho' },
+    { label: 'Calhas/cantoneiras danificadas?', name: 'calhas' },
+    { label: 'Esqueleto/espinha danificada?', name: 'esqueleto' },
+    { label: 'Sinais de vetores ou pragas?', name: 'pragas' },
   ];
 
   const handleChange = (e) => {
@@ -27,9 +27,7 @@ export default function AvariasDinamico() {
     }));
   };
 
-  const fileName = (file) => {
-    return file ? file.name : 'Nenhum arquivo';
-  };
+  const fileName = (file) => file ? file.name : 'Nenhum arquivo';
 
   const handleAddCard = () => {
     if (!selectedQuestion) return;
@@ -47,6 +45,8 @@ export default function AvariasDinamico() {
       const newForm = { ...prev };
       delete newForm[`${name}Foto`];
       delete newForm[`${name}Nao`];
+      // 2. Garante que a observação também seja removida do estado
+      delete newForm[`${name}Obs`]; 
       return newForm;
     });
   };
@@ -55,10 +55,7 @@ export default function AvariasDinamico() {
     e.preventDefault();
     setIsModalOpen(true);
   };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const handleCloseModal = () => setIsModalOpen(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,119 +65,80 @@ export default function AvariasDinamico() {
   };
 
   return (
-    <>
-      <Navbar titulo="Checklist - Logística" linkTexto="Voltar" linkDestino="/" />
-      <div className="avaria-fundo">
-        <form className="molde-celular-sap" onSubmit={handleOpenModal}>
-          <h2>Checklist   </h2>
+    <div className="mobile-frame">
+      <div className="mobile-screen">
+        <Navbar titulo="Checklist de Avarias" linkTexto="Voltar" linkDestino="/" />
 
-          <div className="form-content">
-            <label>Selecione uma pergunta:</label>
+        <div className="container-avarias">
+          <form className="form-avarias" onSubmit={handleOpenModal}>
+            <h2>Registrar Não Conformidades</h2>
+
+            <label>Selecione uma avaria para registrar:</label>
             <div className="grupo-selecao-pergunta">
-  <select
-    value={selectedQuestion}
-    onChange={e => setSelectedQuestion(e.target.value)}
-  >
-    <option value="">Clique Aqui!</option>
-    {perguntas.map(p => (
-      <option key={p.name} value={p.name}>{p.label}</option>
-    ))}
-  </select>
-  <button type="button" onClick={handleAddCard} className="btn-upload">Adicionar</button>
-</div>
-
+              <select value={selectedQuestion} onChange={e => setSelectedQuestion(e.target.value)}>
+                <option value="">Clique para selecionar...</option>
+                {perguntas.map(p => <option key={p.name} value={p.name}>{p.label}</option>)}
+              </select>
+              <button type="button" onClick={handleAddCard} className="btn-adicionar">Adicionar</button>
+            </div>
 
             {selectedCards.map((pergunta) => (
               <div className="grupo-avaria" key={pergunta.name}>
                 <label>{pergunta.label}</label>
                 <div className="input-container">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    id={`${pergunta.name}Foto`}
-                    name={`${pergunta.name}Foto`}
-                    onChange={handleChange}
-                    style={{ display: 'none' }}
-                  />
-                  <label htmlFor={`${pergunta.name}Foto`} className="btn-upload">
-                    Anexar...
-                  </label>
+                  <input type="file" accept="image/*" id={`${pergunta.name}Foto`} name={`${pergunta.name}Foto`} onChange={handleChange} style={{ display: 'none' }} />
+                  <label htmlFor={`${pergunta.name}Foto`} className="btn-upload">Anexar Foto</label>
                   <span className="file-name-checklist">{fileName(form[`${pergunta.name}Foto`])}</span>
                   <label className="nao-checkbox">
-                    <input
-                      type="checkbox"
-                      name={`${pergunta.name}Nao`}
-                      checked={form[`${pergunta.name}Nao`] || false}
-                      onChange={handleChange}
-                    />
-                    Não se aplica
+                    <input type="checkbox" name={`${pergunta.name}Nao`} checked={form[`${pergunta.name}Nao`] || false} onChange={handleChange} />
+                    N/A
                   </label>
-                 <button
-  type="button"
-  onClick={() => handleRemoveCard(pergunta.name)}
-  className="btn-remover-card" // Usando a classe do seu CSS
->
-  ✕
-</button>
+                  <button type="button" onClick={() => handleRemoveCard(pergunta.name)} className="btn-remover-card">✕</button>
                 </div>
+
+                {/* 1. Campo de observação adicionado aqui */}
+                <textarea
+                  name={`${pergunta.name}Obs`}
+                  value={form[`${pergunta.name}Obs`] || ''}
+                  onChange={handleChange}
+                  placeholder="Descreva a avaria ou detalhes adicionais..."
+                  className="obs-textarea"
+                />
               </div>
             ))}
 
-            <button type="submit" className="btn-avarias-sap">Avançar</button>
-          </div>
-        </form>
-      </div>
+            <button type="submit" className="btn-avarias-sap">Avançar para Finalizar</button>
+          </form>
+        </div>
 
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>Checklist de carregamento</h2>
-            <div className="form-content">
+        {isModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
               <form onSubmit={handleSubmit}>
-                <label>Foto lado direito aberto e carregado:</label>
-                <input
-                  type="file"
-                  name="ladoDireitoCarregadoFoto"
-                  onChange={handleChange}
-                  accept="image/*"
-                />
+                <h2>Finalização do Checklist</h2>
+                
+                <label>Foto lado direito (carregado):</label>
+                <input type="file" name="ladoDireitoCarregadoFoto" onChange={handleChange} accept="image/*"/>
 
-                <label>Foto lado esquerdo aberto e carregado:</label>
-                <input
-                  type="file"
-                  name="ladoEsquerdoCarregadoFoto"
-                  onChange={handleChange}
-                  accept="image/*"
-                />
+                <label>Foto lado esquerdo (carregado):</label>
+                <input type="file" name="ladoEsquerdoCarregadoFoto" onChange={handleChange} accept="image/*"/>
 
-                <div className="grupo-assinatura">
-                  <h3>Assinaturas</h3>
-                  <label>Assinatura do motorista:</label>
-                  <input
-                    type="text"
-                    name="assinaturaMotorista"
-                    value={form.assinaturaMotorista || ''}
-                    onChange={handleChange}
-                  />
+                <h3>Assinaturas</h3>
+                <label>Assinatura do motorista:</label>
+                <input type="text" name="assinaturaMotorista" value={form.assinaturaMotorista || ''} onChange={handleChange}/>
 
-                  <label>Assinatura do conferente:</label>
-                  <input
-                    type="text"
-                    name="assinaturaConferente"
-                    value={form.assinaturaConferente || ''}
-                    onChange={handleChange}
-                  />
-                </div>
+                <label>Assinatura do conferente:</label>
+                <input type="text" name="assinaturaConferente" value={form.assinaturaConferente || ''} onChange={handleChange}/>
 
                 <div className="modal-actions">
-                  <button type="button" onClick={handleCloseModal}>Cancelar</button>
-                  <button type="submit" className="btn-primary">Confirmar e Enviar</button>
+                  <button type="button" onClick={handleCloseModal} className="btn-cancelar">Cancelar</button>
+                  <button type="submit" className="btn-confirmar">Confirmar e Enviar</button>
                 </div>
               </form>
             </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 }
