@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import logo from '../assets/truck_16061035.gif';
+
 
 export default function Navbar({ titulo, children }) {
   return (
