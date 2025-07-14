@@ -1,19 +1,25 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Menu from './pages/Menu.jsx';
+import ValidacaoCarregamento from './pages/ValidacaoCarregamento.jsx';
+import ValidacaoDescarregamento from './pages/ValidacaoDescarregamento.jsx';
+import AvariasCarregamento from './pages/AvariasCarregamento.jsx';
+import AvariasDescarregamento from './pages/AvariasDescarregamento.jsx';
+import Verificacao from './pages/Verificacao.jsx'; // <-- Importa a nova página
 
-import Verificacao from './pages/Verificacao';
-import Avarias from './pages/Avarias';
-import ValidacaoCarregamento from './pages/ValidacaoCarregamento';
-import ValidacaoDescarregamento from './pages/ValidacaoDescarregamento'
-
-export default function App() {
+function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Verificacao />} />
-      <Route path="/avarias" element={<Avarias />} />
-
-            <Route path="/carregamento" element={<ValidacaoCarregamento />} />
-            <Route path="/descarregamento" element={<ValidacaoDescarregamento />} />
-    </Routes>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Menu />} />
+        <Route path="/carregamento" element={<ValidacaoCarregamento />} />
+        <Route path="/descarregamento" element={<ValidacaoDescarregamento />} />
+        <Route path="/avarias-carregamento" element={<AvariasCarregamento />} />
+        <Route path="/avarias-descarregamento" element={<AvariasDescarregamento />} />
+        <Route path="/verificacao" element={<Verificacao />} /> {/* <-- Adiciona a nova rota */}
+      </Routes>
+    </Router>
   );
 }
+
+export default App;

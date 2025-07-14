@@ -1,0 +1,42 @@
+.menu-container {
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+.menu-title {
+  color: #333;
+  margin-bottom: 30px;
+}
+.menu-button {
+  display: block;
+  width: 90%;
+  padding: 18px;
+  margin: 12px auto;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+}
+.menu-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+/* Adicione este novo estilo ao final do seu arquivo Menu.css */
+.verificacao-btn { background-color: #6c757d; } /* Cinza para uma ação neutra */
+.verificacao-btn:hover { background-color: #5a6268; }
+.carregamento-btn { background-color: #007bff; }
+.carregamento-btn:hover { background-color: #0056b3; }
+.descarregamento-btn { background-color: #28a745; }
+.descarregamento-btn:hover { background-color: #1a682c; }
+.avarias-carregamento-btn { background-color: #f0a500; }
+.avarias-carregamento-btn:hover { background-color: #cf8e00; }
+.avarias-descarregamento-btn { background-color: #d9534f; }
+.avarias-descarregamento-btn:hover { background-color: #b52b26; }

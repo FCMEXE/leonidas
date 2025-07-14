@@ -1,118 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Navbar.css';
+import logo from '../assets/truck_16061035.gif';
 
-export default function Navbar({ titulo, linkTexto, linkDestino }) {
-  const baseLinkStyle = {
-    color: 'white',
-    textDecoration: 'none',
-    fontWeight: '600',
-    padding: '6px 12px',
-    borderRadius: '6px',
-    transition: 'background-color 0.3s ease',
-  };
-
-  const avariasButtonStyle = {
-    color: 'white',
-    backgroundColor: '#f0a500',
-    padding: '8px 18px',
-    borderRadius: '8px',
-    fontWeight: '700',
-    textDecoration: 'none',
-    boxShadow: '0 3px 8px rgba(240, 165, 0, 0.7)',
-    transition: 'background-color 0.25s ease',
-  };
-
-  const avariasDescButtonStyle = {
-    ...avariasButtonStyle,
-    backgroundColor: '#d9534f',
-    boxShadow: '0 3px 8px rgba(217, 83, 79, 0.7)',
-  };
-
+export default function Navbar({ titulo, children }) {
   return (
-    <nav style={{
-      backgroundColor: '#0a4a90', // azul SAP
-      padding: '0.75rem 2rem',
-      color: 'white',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      position: 'sticky',
-      top: 0,
-      zIndex: 1000,
-      boxShadow: '0 3px 10px rgba(0,0,0,0.3)',
-      fontFamily: "'Roboto', sans-serif"
-    }}>
-      {/* Logo + Título */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <div style={{
-          width: 40,
-          height: 40,
-          backgroundColor: 'white',
-          borderRadius: '6px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          overflow: 'hidden',
-          boxShadow: '0 0 5px rgba(0,0,0,0.1)',
-          cursor: 'pointer',
-        }}>
-          <img src="src/assets/truck_16061035.gif" alt="Logo" width={45} />
-        </div>
-
-        <h1 style={{ margin: 0, fontWeight: 700, fontSize: '1.4rem', userSelect: 'none' }}>
-          {titulo}
-        </h1>
+    <nav className="navbar">
+      <div className="navbar-brand">
+        <Link to="/" className="navbar-logo-container">
+          <img src={logo} alt="Logo" className="navbar-logo" />
+        </Link>
+        <h1 className="navbar-title">{titulo}</h1>
       </div>
-
-      {/* Links */}
-      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-        {linkTexto && linkDestino && (
-          <Link
-            to={linkDestino}
-            style={baseLinkStyle}
-            onMouseEnter={e => e.currentTarget.style.backgroundColor = '#073763'}
-            onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
-          >
-            {linkTexto}
-          </Link>
-        )}
-
-        <Link
-          to="/carregamento"
-          style={baseLinkStyle}
-          onMouseEnter={e => e.currentTarget.style.backgroundColor = '#073763'}
-          onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
-        >
-          Carregamento
-        </Link>
-
-        <Link
-          to="/descarregamento"
-          style={baseLinkStyle}
-          onMouseEnter={e => e.currentTarget.style.backgroundColor = '#073763'}
-          onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
-        >
-          Descarregamento
-        </Link>
-
-        <Link
-          to="/avarias"
-          style={avariasButtonStyle}
-          onMouseEnter={e => e.currentTarget.style.backgroundColor = '#cf8e00'}
-          onMouseLeave={e => e.currentTarget.style.backgroundColor = '#f0a500'}
-        >
-          Avarias
-        </Link>
-
-        <Link
-          to="/avarias-descarregamento"
-          style={avariasDescButtonStyle}
-          onMouseEnter={e => e.currentTarget.style.backgroundColor = '#b52b26'}
-          onMouseLeave={e => e.currentTarget.style.backgroundColor = '#d9534f'}
-        >
-          Avarias Descarregamento
-        </Link>
-      </div>
+      <div className="navbar-links">{children}</div>
     </nav>
   );
 }

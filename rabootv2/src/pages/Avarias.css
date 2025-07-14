@@ -1,42 +1,12 @@
-/* --- ESTILO GERAL E MOLDE DO CELULAR (Consistente com os outros) --- */
-body {
-  background-color: #e0e5ec;
-  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  padding: 20px 0;
-}
-
-.mobile-frame {
-  width: 410px;
-  height: 820px;
-  background-color: #1a1a1a;
-  border-radius: 40px;
-  padding: 15px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 5px #000;
-  position: relative;
-}
-
-.mobile-screen {
-  background-color: #f0f2f5;
-  width: 100%;
-  height: 100%;
-  border-radius: 25px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-/* --- ESTILOS DA APLICAÇÃO DE AVARIAS --- */
 .container-avarias {
   flex-grow: 1;
   overflow-y: auto;
   padding: 20px;
 }
-
+.form-avarias {
+    display: flex;
+    flex-direction: column;
+}
 .form-avarias h2 {
   font-size: 1.2em;
   color: #354a5f;
@@ -45,7 +15,6 @@ body {
   margin-bottom: 20px;
   text-align: center;
 }
-
 .form-avarias label {
   font-size: 0.9em;
   color: #333333;
@@ -53,14 +22,11 @@ body {
   display: block;
   margin-bottom: 8px;
 }
-
-/* Grupo de seleção da pergunta */
 .grupo-selecao-pergunta {
   display: flex;
   gap: 10px;
   margin-bottom: 25px;
 }
-
 .grupo-selecao-pergunta select {
   flex-grow: 1;
   padding: 12px;
@@ -68,25 +34,21 @@ body {
   border-radius: 4px;
   font-size: 1em;
 }
-
-/* Estilo do Card de Avaria adicionado dinamicamente */
 .grupo-avaria {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
-  border-left: 4px solid #007bff; /* Destaque azul */
+  border-left: 4px solid #007bff;
   padding: 15px;
   border-radius: 5px;
   margin-bottom: 15px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-
 .grupo-avaria .input-container {
   display: flex;
   align-items: center;
   gap: 10px;
   width: 100%;
 }
-
 .file-name-checklist {
   font-size: 0.8em;
   color: #555;
@@ -98,23 +60,36 @@ body {
   white-space: nowrap;
   overflow: hidden;
 }
-
 .nao-checkbox {
   display: flex;
   align-items: center;
   font-weight: normal;
   font-size: 0.8em;
   gap: 5px;
-  margin-left: auto; /* Empurra para a direita */
+  margin-left: auto;
 }
-
-/* Botões */
-.btn-adicionar, .btn-upload, .btn-avarias-sap {
+.obs-textarea {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.9em;
+  min-height: 60px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.obs-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+.btn-adicionar, .btn-upload {
   background-color: #007bff;
   color: white;
   border: none;
   padding: 12px 15px;
-  text-align: center;
   font-size: 0.9em;
   font-weight: bold;
   cursor: pointer;
@@ -122,15 +97,9 @@ body {
   transition: background-color 0.2s;
   white-space: nowrap;
 }
-.btn-adicionar:hover, .btn-upload:hover, .btn-avarias-sap:hover {
+.btn-adicionar:hover, .btn-upload:hover {
   background-color: #0056b3;
 }
-.btn-avarias-sap {
-  width: 100%;
-  margin-top: 20px;
-  padding: 14px;
-}
-
 .btn-remover-card {
   background-color: #e4e4e4;
   color: #333;
@@ -144,16 +113,30 @@ body {
   align-items: center;
   justify-content: center;
   padding-bottom: 3px;
+  flex-shrink: 0;
 }
 .btn-remover-card:hover {
   background-color: #f44336;
   color: white;
 }
-
-
-/* --- ESTILOS DO MODAL --- */
+.btn-avarias-sap {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+.btn-avarias-sap:hover {
+  background-color: #1a682c;
+}
 .modal-overlay {
-  position: absolute; /* Relativo à tela do celular */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -164,23 +147,19 @@ body {
   align-items: center;
   z-index: 1000;
 }
-
 .modal-content {
   background-color: #ffffff;
   padding: 25px;
   border-radius: 8px;
   width: 90%;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  display: flex;
-  flex-direction: column;
 }
-
 .modal-content h2, .modal-content h3 {
   color: #354a5f;
   text-align: center;
   margin-top: 0;
+  margin-bottom: 15px;
 }
-
 .modal-content input[type="file"], .modal-content input[type="text"] {
   width: 100%;
   padding: 10px;
@@ -190,14 +169,12 @@ body {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
 .modal-actions {
   display: flex;
   justify-content: space-between;
   gap: 15px;
   margin-top: 20px;
 }
-
 .modal-actions button {
   flex: 1;
   padding: 12px;
@@ -207,34 +184,11 @@ body {
   cursor: pointer;
   transition: background-color 0.2s;
 }
-
 .modal-actions .btn-cancelar {
   background-color: #e4e4e4;
   color: #333;
 }
-
 .modal-actions .btn-confirmar {
   background-color: #28a745;
   color: white;
-}
-
-/* Adicione este código ao final do seu arquivo Avarias.css */
-
-.obs-textarea {
-  width: 100%;
-  margin-top: 15px; /* Espaçamento do grupo de botões acima */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-family: inherit; /* Usa a mesma fonte do resto da página */
-  font-size: 0.9em;
-  min-height: 60px; /* Altura mínima */
-  resize: vertical; /* Permite que o usuário aumente a altura */
-  box-sizing: border-box; /* Garante que o padding não afete a largura */
-}
-
-.obs-textarea:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }

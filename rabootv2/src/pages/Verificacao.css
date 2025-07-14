@@ -1,143 +1,94 @@
-@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #f0f4f8;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.container-verificacao {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3rem 1.5rem;
-  background: #fffbe7;
-  min-height: calc(100vh - 60px);
-  max-width: 480px;
-  margin: 2rem auto;
-  border-radius: 16px;
-  box-shadow: 0 12px 28px rgba(2, 136, 209, 0.15);
-  box-sizing: border-box;
+.container-verificacao h2 {
+    text-align: center;
+    color: #354a5f;
 }
-
-/* Observação superior */
 .observacao {
-  background-color: #e3f2fd;
-  padding: 1rem 1.5rem;
-  border-left: 6px solid #0288d1;
-  margin-bottom: 2rem;
-  width: 100%;
-  font-size: 1rem;
-  color: #01579b;
-  font-weight: 600;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(2, 136, 209, 0.15);
-  user-select: none;
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    line-height: 1.5;
 }
-
-/* Campo de entrada */
-.input {
-  padding: 0.75rem 1rem;
-  font-size: 1.05rem;
-  width: 100%;
-  border: 2px solid #90caf9;
-  border-radius: 10px;
-  background-color: #ffffff;
-  margin-bottom: 1.5rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
-  outline: none;
+.grupo-verificacao {
+    display: flex;
+    gap: 10px;
 }
-
-.input:focus {
-  border-color: #0288d1;
-  box-shadow: 0 0 10px rgba(2, 136, 209, 0.5);
-  background-color: #e3f2fd;
+.input-verificacao {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
 }
-
-/* Botão de ação */
-.botao {
-  padding: 0.75rem 2rem;
-  font-size: 1.05rem;
-  background-color: #0288d1;
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  width: 100%;
-  box-shadow: 0 6px 12px rgba(2, 136, 209, 0.3);
-  transition: all 0.25s ease;
+.botao-verificar {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
-
-.botao:disabled {
-  background-color: #90caf9;
-  cursor: not-allowed;
-  box-shadow: none;
+.botao-verificar:hover:not(:disabled) {
+    background-color: #0056b3;
 }
-
-.botao:hover:not(:disabled) {
-  background-color: #0277bd;
-  box-shadow: 0 10px 20px rgba(2, 136, 209, 0.4);
-  transform: translateY(-2px);
+.botao-verificar:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
 }
-
-.botao:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-/* Cartão com os resultados */
 .cartao-resultado {
-  background-color: #263238;
-  padding: 2rem;
-  border-radius: 16px;
-  width: 100%;
-  color: #eceff1;
-  box-shadow: 0 12px 30px rgba(38, 50, 56, 0.6);
-  font-size: 1rem;
-  margin-top: 1.5rem;
-  user-select: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    border-left: 5px solid #28a745;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+.cartao-resultado h3 {
+    margin-top: 0;
+    color: #1a682c;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.cartao-resultado p {
+    margin: 8px 0;
+    font-size: 1em;
+}
+.erro-verificacao {
+    color: #d9534f;
+    font-weight: bold;
+    text-align: center;
+    background-color: #f8d7da;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-.cartao-resultado h2 {
-  margin-bottom: 1.25rem;
-  text-align: center;
-  color: #80d8ff;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 6px #4fc3f7;
-}
-
-/* Erro de validação */
-.erro {
-  color: #d32f2f;
-  margin-top: 1.2rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  animation: shake 0.3s ease;
-  justify-content: center;
-  user-select: none;
-}
-
-.erro::before {
-  content: "⚠️";
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
-}
-
-/* Responsivo */
-@media (max-width: 480px) {
-  .container {
-    margin: 1rem;
-    padding: 2rem 1rem;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Adicione este estilo para o divisor no card */
+.cartao-resultado .divisor {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 15px 0;
 }

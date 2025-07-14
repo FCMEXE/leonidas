@@ -1,102 +1,114 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar'; // Você precisa ter esse componente
-import { motoristas } from '../data/motoristas';
-import './ValidacaoCarregamento.css'; // Importa o novo CSS
+import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar.jsx';
+import { motoristas, viagens } from '../data/database.jsx';
+import './ValidacaoCarregamento.css';
 
 export default function ValidacaoCarregamento() {
+  // O state agora inclui todos os campos necessários
   const [form, setForm] = useState({
-    matriculaConferente: '',
+    matriculaMotorista: '',
+    nomeMotorista: '',
     cnh: '',
     cpf: '',
-    nomeMotorista: '',
-    caminhao: '',
-    tipoCarga: '',
     empresa: '',
-    // outros campos específicos de carregamento aqui...
+    caminhao: '', // Adicionado conforme solicitado
+    placaCarreta: '',
+    tipoVeiculo: '',
+    tipoCarga: '', // Adicionado conforme solicitado
+    tipoOperacao: 'Aguardando Matrícula...',
+    destino: '',
+    quantidadePaletes: '',
   });
 
-  function handleMatriculaChange(e) {
+  // Busca dados do motorista e da viagem na base de dados central
+  const handleMatriculaChange = (e) => {
     const matricula = e.target.value;
-    setForm(prev => ({ ...prev, matriculaConferente: matricula }));
+    setForm(prev => ({ ...prev, matriculaMotorista: matricula }));
 
-    const motorista = motoristas.find(m => m.matricula === matricula);
+    const motoristaEncontrado = motoristas.find(m => m.matricula === matricula);
+    const viagemEncontrada = viagens.find(v => v.matriculaMotorista === matricula && v.tipoOperacao === 'Carregamento');
 
-    if (motorista) {
+    if (motoristaEncontrado && viagemEncontrada) {
       setForm(prev => ({
         ...prev,
-        cnh: motorista.cnh || '',
-        cpf: motorista.cpf || '',
-        nomeMotorista: motorista.nome || '',
-        caminhao: motorista.caminhao || '',
-        tipoCarga: motorista.tipoCarga || '',
-        empresa: motorista.empresa || '',
+        nomeMotorista: motoristaEncontrado.nome,
+        cnh: motoristaEncontrado.cnh,
+        cpf: motoristaEncontrado.cpf,
+        empresa: viagemEncontrada.empresa,
+        caminhao: viagemEncontrada.tipoVeiculo, // Usando tipoVeiculo como "caminhão"
+        placaCarreta: viagemEncontrada.placaCarreta,
+        tipoVeiculo: viagemEncontrada.tipoVeiculo,
+        tipoCarga: 'Produto Acabado', // Exemplo, pode vir da viagem também
+        tipoOperacao: viagemEncontrada.tipoOperacao,
+        destino: viagemEncontrada.destino,
+        quantidadePaletes: viagemEncontrada.quantidadePaletes,
       }));
     } else {
-      setForm(prev => ({
-        ...prev,
-        cnh: '',
-        cpf: '',
-        nomeMotorista: '',
-        caminhao: '',
-        tipoCarga: '',
-        empresa: '',
-      }));
+      // Limpa todos os campos se não encontrar
+      setForm({
+        matriculaMotorista: matricula,
+        nomeMotorista: '', cnh: '', cpf: '', empresa: '', caminhao: '', placaCarreta: '',
+        tipoVeiculo: '', tipoCarga: '', tipoOperacao: matricula ? 'Viagem não encontrada' : 'Aguardando Matrícula...',
+        destino: '', quantidadePaletes: '',
+      });
     }
-  }
+  };
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Carregamento enviado!');
-    console.log(form);
-  }
+    alert('Validação de Carregamento enviada com sucesso!');
+    console.log("Dados do Formulário:", form);
+  };
 
   return (
-    // Adicionamos a estrutura do celular aqui
     <div className="mobile-frame">
       <div className="mobile-screen">
-        {/* Seu componente Navbar precisa ser adaptado para usar as classes CSS */}
-        <Navbar titulo="Validação de Carregamento" linkTexto="Voltar" linkDestino="/" />
-        
+        <Navbar titulo="Val. Carregamento">
+          <Link to="/" className="nav-link">Menu</Link>
+        </Navbar>
         <div className="container-validacao">
-          <form onSubmit={handleSubmit}>
-
+          <form className="form-validacao" onSubmit={handleSubmit}>
+            <h2>Identificação da Viagem</h2>
+            
             <label>Matrícula do Motorista:</label>
-            <input
-              type="text"
-              name="matriculaConferente"
-              value={form.matriculaConferente}
-              onChange={handleMatriculaChange}
-              placeholder="Digite matrícula para buscar"
-              required
-            />
-
-            <label>Nome do motorista - SAP:</label>
+            <input type="text" name="matriculaMotorista" value={form.matriculaMotorista} onChange={handleMatriculaChange} placeholder="Digite a matrícula para buscar" required />
+            
+            <label>Nome do motorista:</label>
             <input type="text" name="nomeMotorista" value={form.nomeMotorista} readOnly />
-
+            
             <label>CNH do motorista:</label>
             <input type="text" name="cnh" value={form.cnh} readOnly />
 
             <label>CPF do motorista:</label>
             <input type="text" name="cpf" value={form.cpf} readOnly />
 
+            <label>Empresa:</label>
+            <input type="text" name="empresa" value={form.empresa} readOnly />
+
             <label>Caminhão:</label>
             <input type="text" name="caminhao" value={form.caminhao} readOnly />
+            
+            <label>Placa da Carreta:</label>
+            <input type="text" name="placaCarreta" value={form.placaCarreta} readOnly />
 
             <label>Tipo de carga:</label>
             <input type="text" name="tipoCarga" value={form.tipoCarga} readOnly />
 
-            <label>Empresa:</label>
-            <input type="text" name="empresa" value={form.empresa} readOnly />
-
-            {/* Outros campos específicos do carregamento */}
-
-            <button type="submit" className="btn-submit">Enviar Carregamento</button>
+            <label>Tipo de Operação:</label>
+            <input type="text" name="tipoOperacao" value={form.tipoOperacao} readOnly />
+            
+            <div className="form-actions">
+              <button type="submit" className="btn-submit">Confirmar Validação</button>
+            </div>
           </form>
+
+          <div className="checklist-actions">
+            <p>Veículo possui não conformidades?</p>
+            <Link to="/avarias-carregamento" className="btn-secondary">
+              Registrar Avarias
+            </Link>
+          </div>
         </div>
       </div>
     </div>

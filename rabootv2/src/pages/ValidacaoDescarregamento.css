@@ -1,0 +1,32 @@
+/* Reutiliza a maior parte dos estilos do Carregamento */
+@import url('./ValidacaoCarregamento.css');
+
+/* Estilo específico para o botão secundário de descarregamento */
+.btn-secondary-desc {
+  background-color: #d9534f; /* Vermelho, consistente com o tema */
+  color: white;
+  text-decoration: none;
+  padding: 14px 20px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+  display: block;
+}
+.btn-secondary-desc:hover {
+  background-color: #b52b26;
+}
+.form-validacao .radio-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.form-validacao .radio-group label,
+.form-validacao .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
+    margin-bottom: 0;
+}
