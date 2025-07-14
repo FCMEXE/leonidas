@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // AQUI: O caminho foi corrigido para "./Navbar.css"
-import './Navbar.css'; 
+import 'rabootv2\src\components\Navbar.css'
 
 import logo from '../assets/truck_16061035.gif'; 
 
